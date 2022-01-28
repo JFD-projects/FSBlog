@@ -2,14 +2,11 @@ const { Schema, model } = require('mongoose')
 
 const schema = new Schema({
   // articleId: {
-  //   type: String,
+  //   type: Schema.Types.ObjectId, 
+  //   ref: 'Articles', 
   //   required: true
   // },
-  articleId: {
-    type: Schema.Types.ObjectId, 
-    ref: 'Articles', 
-    required: true
-  },
+  articleId: {type: Schema.Types.ObjectId, ref: 'Articles'},
   commentText: {
     type: String,
     required: true

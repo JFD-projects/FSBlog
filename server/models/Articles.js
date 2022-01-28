@@ -10,8 +10,7 @@ const schema = new Schema({
     required: true
   },
   img: {
-    type: String,
-    required: true
+    type: String
   },
   title: {
     type: String,

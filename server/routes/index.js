@@ -5,6 +5,7 @@ const router = express.Router( { mergeParams: true } )
 router.use('/auth', require('./auth.routes'))
 router.use('/articles', require('./articles.routes'))
 router.use('/comments', require('./comments.routes'))
+router.use('/admin', require('./admin.routes'))
 router.use('/user', require('./user.routes'))
 
 module.exports = router
