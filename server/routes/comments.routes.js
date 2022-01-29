@@ -21,12 +21,13 @@ router
     try {
       const newComment = await Comments.create({
         ...req.body,
-        userId: req.user._id,
+        userId: req.user._id.toString(),
       })
       res.status(201).send(newComment)
     } catch (e) {
       res.status(500).json({
-        message: 'На сервере произошла ошибка. Попробуйте позже!'
+        message: 'На сервере произошла ошибка. Попробуйте позже!',
+        error: e
       })
     }
   })
