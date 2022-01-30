@@ -36,7 +36,7 @@ router
     try {
       const { commentId } = req.params
       const removeComment = await Comments.findById(commentId)
-      if (removeComment.userId.toString() === req.user._id) { // || removeComment.userId.toString() === ADMIN_id!!!
+      if (removeComment.userId.toString() === req.user._id || removeComment.userId.toString() === '61f684d91e8506482cdda475') { // || removeComment.userId.toString() === ADMIN_id!!!
         await removeComment.remove()
         return res.send(null)
       } else {
