@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 import { TextAreaField } from '../common/form/TextAreaField'
 import { handleChange } from '../../static/funcsForForm'
 import { getCurrentArticle } from '../../store/articles'
 import { createComment } from '../../store/comments'
-import { useDispatch, useSelector } from 'react-redux'
 import { useAuth } from '../../hooks/useAuth'
 // Material UI:
 import { Button } from '@mui/material'

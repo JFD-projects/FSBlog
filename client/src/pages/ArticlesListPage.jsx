@@ -1,11 +1,12 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { Grid, Card, CardMedia, CardContent, Button, Typography, CardActions, Box } from '@material-ui/core'
 import { getOpenArticle } from '../store/articles'
 import { Markup } from 'interweave'
 import { SearchArticleComponent } from '../components/SearchArticleComponent'
 import { useArticles } from '../hooks/useArticles'
+// Material UI:
+import { Grid, Card, CardMedia, CardContent, Button, Typography, CardActions, Box } from '@material-ui/core'
 import Pagination from '@mui/material/Pagination'
 
 export const ArticlesListPage = () => {

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import * as yup from 'yup'
 import { ComponentInput } from '../common/form/TextField'
 // import { TextAreaField } from '../common/form/TextAreaField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
 import { InputFile } from '../common/form/InputFile'
+import { createArticle, updateArticle } from '../../store/articles'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
+// Material UI:
 import { Button } from '@mui/material'
 import SaveIcon from '@mui/icons-material/Save'
 import { makeStyles } from '@material-ui/core/styles'
-import { createArticle, updateArticle } from '../../store/articles'
-import { useDispatch } from 'react-redux'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
 
 const useStyles = makeStyles((theme) => ({
   root: {

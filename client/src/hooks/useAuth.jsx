@@ -31,6 +31,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     localStorageService.checkLogin(setAuth)
+    if (localStorageService.getEmailUser() === null) logout()
   }, [])
 
   function logout () {

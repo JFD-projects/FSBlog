@@ -26,7 +26,7 @@ export const TextAreaField = ({ label, name, className, value, onChange, error, 
 
   return (
     <Box sx={{ margin: '10px 0' }}>
-      <label htmlFor={name}> {label}</label>
+      <label htmlFor={name}>{label}</label>
       <Box
         component="textarea"
         id={name}

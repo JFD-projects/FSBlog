@@ -2,6 +2,7 @@ import React from 'react'
 import { SubTitle } from '../components/common/typografy/SubTitle'
 import { getStartInfo } from '../store/startInfo'
 import { useSelector } from 'react-redux'
+// Material UI:
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
