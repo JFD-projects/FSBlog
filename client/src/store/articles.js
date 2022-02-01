@@ -34,14 +34,15 @@ const articlesSlice = createSlice({
       })
     },
     articleDeleted: (state, action) => {
-      state.entities = state.entities.filter(a => a.id !== action.payload)
+      state.entities = state.entities.filter(a => a._id !== action.payload)
     },
     articlesRequestFiled: (state, action) => {
       state.error = action.payload
       state.isLoading = false
     },
     currentArticleReceived: (state, action) => {
-      state.currentArticle = state.entities.filter(a => Number(a.id) === Number(action.payload))
+      console.log(state.entities)
+      state.currentArticle = state.entities.filter(a => Number(a._id) === Number(action.payload))
     },
     currentArticleReseted: (state) => {
       state.currentArticle = null

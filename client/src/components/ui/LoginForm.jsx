@@ -4,18 +4,22 @@ import { ComponentInput } from '../common/form/TextField'
 import { CheckBoxField } from '../common/form/CheckBoxField'
 import { FormTemplate } from '../common/form/FormTemplate'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
-import { useAuth } from '../../hooks/useAuth'
-import Loader from '../common/Loader/Loader'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAuthError, logIn } from '../../store/users'
+import { useHistory } from 'react-router'
+// import Loader from '../common/Loader/Loader'
 
 export const LoginForm = () => {
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const loginError = useSelector(getAuthError())
   const [data, setData] = useState({
-    email: '', password: '', stayOn: false
+    email: '', password: ''
   })
 
-  const { signIn } = useAuth()
   const [errors, setErrors] = useState({})
   const [enterErrors, setEnterErrors] = useState(null)
-  const [isLoading, setLoading] = useState(false)
+  // const [isLoading, setLoading] = useState(false)
 
   const validateScheme = yup.object().shape({
     password: yup.string().required('Пароль обязателен для заполнения'),
@@ -34,55 +38,46 @@ export const LoginForm = () => {
     validate()
   }, [data])
 
-  const handleSubmit = async (e) => {
-    setLoading(true)
+  const handleSubmit = (e) => {
     e.preventDefault()
     const isValid = validate()
     if (!isValid) return
-    console.log(data)
-    try {
-      setLoading(false)
-      await signIn(data)
-    } catch (error) {
-      setLoading(false)
-      setErrors({})
-      setEnterErrors(error.message)
-    }
+    const redirect = history.location.state ? history.location.state.from.pathname : '/'
+    dispatch(logIn({ payload: data, redirect }))
   }
+
   return (
     <>
-      {!isLoading ? (
-        <FormTemplate handleSubmit={handleSubmit} isValid={isValid} enterErrors={enterErrors}>
-          <ComponentInput
-            label="Электронная почта"
-            name="email"
-            value={data.email}
-            onChange={(target) => handleChange(setData, target)}
-            error={errors.email}
-            autoFocus
-            onKeyDown={(e) => handleKeyDown(e)}
-          />
-          <ComponentInput
-            label="Пароль"
-            type="password"
-            name="password"
-            value={data.password}
-            onChange={(target) => handleChange(setData, target, setEnterErrors)}
-            error={errors.password}
-            className="input-auth-form"
-            onKeyDown={(e) => handleKeyDown(e)}
-          />
-          <CheckBoxField
-            value={data.stayOn}
-            onChange={(target) => handleChange(setData, target, setEnterErrors)}
-            name='stayOn'
-            onKeyDown={(e) => handleKeyDown(e)}
-          >
-            Оставаться в системе
-          </CheckBoxField>
-        </FormTemplate>
-      ) : (
-        <div className="loader-container"><Loader /></div>
-      )}
+      <FormTemplate handleSubmit={handleSubmit} isValid={isValid} enterErrors={enterErrors}>
+        <ComponentInput
+          label="Электронная почта"
+          name="email"
+          value={data.email}
+          onChange={(target) => handleChange(setData, target)}
+          error={errors.email}
+          autoFocus
+          onKeyDown={(e) => handleKeyDown(e)}
+        />
+        <ComponentInput
+          label="Пароль"
+          type="password"
+          name="password"
+          value={data.password}
+          onChange={(target) => handleChange(setData, target, setEnterErrors)}
+          error={errors.password}
+          className="input-auth-form"
+          onKeyDown={(e) => handleKeyDown(e)}
+        />
+        <CheckBoxField
+          value={data.stayOn}
+          onChange={(target) => handleChange(setData, target, setEnterErrors)}
+          name='stayOn'
+          onKeyDown={(e) => handleKeyDown(e)}
+        >
+          Оставаться в системе
+        </CheckBoxField>
+        {loginError && <p className="text-danger">{loginError}</p>}
+      </FormTemplate>
+
     </>)
 }

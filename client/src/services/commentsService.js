@@ -1,6 +1,6 @@
 import httpService from './http.service'
 
-const commentsEndpoint = 'comments/'
+const commentsEndpoint = '/comments/'
 
 const commentsService = {
   get: async () => {

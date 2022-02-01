@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import configFile from '../config.json'
-import authService from './auth.service'
+import { httpAuth } from '../hooks/useAuth'
 import localStorageService from './localStorage.service'
 
 const http = axios.create({
@@ -10,14 +10,17 @@ const http = axios.create({
 
 http.interceptors.request.use(
   async function (config) {
-    const expiresDate = localStorageService.getExpiresToken()
-    const refreshToken = localStorageService.getRefreshToken()
-    const isExpired = refreshToken && expiresDate < Date.now()
     if (configFile.isFirebase) {
       const containSlash = /\/$/gi.test(config.url)
       config.url = (containSlash ? config.url.slice(0, -1) : config.url) + '.json'
-      if (isExpired) {
-        const data = await authService.refresh()
+      const expiresDate = localStorageService.getExpiresToken()
+      const refreshToken = localStorageService.getRefreshToken()
+      // const stayOn = localStorageService.getStayOn()
+      if (refreshToken && expiresDate < Date.now()) {
+        const { data } = await httpAuth.post('token', {
+          grant_type: 'refresh_token',
+          refresh_token: refreshToken
+        })
         localStorageService.setTokens({
           refreshToken: data.refresh_token,
           idToken: data.id_token,
@@ -29,38 +32,29 @@ http.interceptors.request.use(
       if (accessToken) {
         config.params = { ...config.params, auth: accessToken }
       }
-    } else {
-      if (isExpired) {
-        const data = await authService.refresh()
-        localStorageService.setTokens(data)
-      }
-      const accessToken = localStorageService.getAccessToken()
-      if (accessToken) {
-        config.headers = {
-          ...config.headers,
-          Authorization: `Bearer ${accessToken}`
-        }
-      }
     }
     return config
   }, function (error) {
     return Promise.reject(error)
   }
 )
+// function transformData (data) {
+//   return data ? Object.keys(data).map(key => ({
+//     ...data[key]
+//   })) : []
+// }
 function transformData (data) {
-  return data && !data._id ? Object.keys(data).map(key => ({
+  return data && !data.id ? Object.keys(data).map(key => ({
     ...data[key]
   })) : data
 }
 http.interceptors.response.use(
-  (res) => {
+  res => {
     if (configFile.isFirebase) {
       res.data = { content: transformData(res.data) }
     }
-    res.data = { content: res.data }
     return res
-  },
-  function (error) {
+  }, function (error) {
     const expectedErrors =
       error.response &&
       error.response.status >= 400 &&
@@ -76,8 +70,7 @@ const httpService = {
   get: http.get,
   post: http.post,
   put: http.put,
-  delete: http.delete,
-  patch: http.patch
+  delete: http.delete
 }
 
 export default httpService

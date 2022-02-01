@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory, NavLink } from 'react-router-dom'
-import { useAuth } from '../hooks/useAuth'
+import { useSelector, useDispatch } from 'react-redux'
+import { getCurrentUserId, logOut, getCurrentUserEmail } from '../store/users'
 // material-ui:
 import { AppBar, Toolbar, Typography, IconButton, Button, Menu, MenuItem } from '@material-ui/core'
 import MenuIcon from '@mui/icons-material/Menu'
@@ -38,9 +39,10 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export const NavbarComponent = () => {
+  const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = useState(null)
-  const { isAuth, logout, currentUser } = useAuth()
-  console.log(currentUser)
+  const isAuth = useSelector(getCurrentUserId()) || ''
+  const currentUser = useSelector(getCurrentUserEmail()) || ''
   const classes = useStyles()
   const history = useHistory()
   const matches = useMediaQuery('(max-width:768px)')
@@ -52,6 +54,9 @@ export const NavbarComponent = () => {
   const handleMenuClick = (pageURL) => {
     history.push(pageURL)
     setAnchorEl(null)
+  }
+  const handleLogout = () => {
+    dispatch(logOut())
   }
   return (
     <AppBar position="static" className={classes.rootNav}>
@@ -88,7 +93,7 @@ export const NavbarComponent = () => {
               </MenuItem>
             </div>
           ) : (
-            <MenuItem onClick={logout}>
+            <MenuItem onClick={handleLogout}>
               <LogoutIcon fontSize="inherit" /> Выход
             </MenuItem>
           ) }
@@ -121,7 +126,7 @@ export const NavbarComponent = () => {
             ) : (
               <div className={classes.userInfoBlock}>
                 <div className={classes.userInfo}>{currentUser}</div>
-                <Button size="small" color="inherit" onClick={logout}><LogoutIcon fontSize="inherit" /> Выход</Button>
+                <Button size="small" color="inherit" onClick={handleLogout}><LogoutIcon fontSize="inherit" /> Выход</Button>
               </div>
             )}
           </>

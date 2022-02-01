@@ -1,6 +1,6 @@
 import httpService from './http.service'
 
-const articlesEndpoint = 'articles/'
+const articlesEndpoint = '/articles/'
 
 const articlesService = {
   get: async () => {

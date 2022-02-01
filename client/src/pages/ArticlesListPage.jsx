@@ -26,7 +26,7 @@ export const ArticlesListPage = () => {
       </Box>
       <Grid container spacing={4} >
         {articlesPaginate.map(a => (
-          <Grid item key={a.id} xs={ 12 } md={ 4 }>
+          <Grid item key={a._id} xs={ 12 } md={ 4 }>
             <Card sx={{ height: '100%' }}>
               <CardMedia
                 component="img"
@@ -43,7 +43,7 @@ export const ArticlesListPage = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color="primary" onClick={() => openArticle(a.id) }>
+                <Button size="small" color="primary" onClick={() => openArticle(a._id) }>
                   Открыть
                 </Button>
               </CardActions>

@@ -3,19 +3,19 @@ import * as yup from 'yup'
 import { ComponentInput } from '../common/form/TextField'
 import { FormTemplate } from '../common/form/FormTemplate'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
-import { useAuth } from '../../hooks/useAuth'
-import Loader from '../common/Loader/Loader'
+import { useDispatch } from 'react-redux'
+import { signUp } from '../../store/users'
+// import Loader from '../common/Loader/Loader'
 
 export const RegisterForm = () => {
+  const dispatch = useDispatch()
   const [data, setData] = useState({
     email: '',
     password: '',
     confirmpassword: ''
   })
-  const { signUp } = useAuth()
   const [errors, setErrors] = useState({})
   const [enterErrors, setEnterErrors] = useState(null)
-  const [isLoading, setLoading] = useState(false)
 
   const validateScheme = yup.object().shape({
     password: yup.string()
@@ -42,59 +42,47 @@ export const RegisterForm = () => {
     validate()
   }, [data])
 
-  const handleSubmit = async (e) => {
-    setLoading(true)
+  const handleSubmit = (e) => {
     e.preventDefault()
     const isValid = validate()
     if (!isValid) return
-    try {
-      setLoading(false)
-      await signUp(data)
-    } catch (error) {
-      setLoading(false)
-      setErrors({})
-      setEnterErrors(error.message)
-    }
+    dispatch(signUp(data))
   }
 
   return (
     <>
-      {!isLoading ? (
-        <FormTemplate handleSubmit={handleSubmit} isValid={isValid} enterErrors={enterErrors}>
-          <ComponentInput
-            label="Электронная почта"
-            name="email"
-            value={data.email}
-            onChange={(target) => handleChange(setData, target)}
-            error={errors.email}
-            className="input-auth-form"
-            autoFocus
-            onKeyDown={(e) => handleKeyDown(e)}
-          />
-          <ComponentInput
-            label="Пароль"
-            type="password"
-            name="password"
-            value={data.password}
-            onChange={(target) => handleChange(setData, target, setEnterErrors)}
-            error={errors.password}
-            className="input-auth-form"
-            onKeyDown={(e) => handleKeyDown(e)}
-          />
-          <ComponentInput
-            label="Повторить пароль"
-            type="password"
-            name="confirmpassword"
-            value={data.confirmpassword}
-            onChange={(target) => handleChange(setData, target, setEnterErrors)}
-            error={errors.confirmpassword}
-            className="input-auth-form"
-            onKeyDown={(e) => handleKeyDown(e)}
-          />
-        </FormTemplate>
-      ) : (
-        <div className="loader-container"><Loader /></div>
-      )}
+      <FormTemplate handleSubmit={handleSubmit} isValid={isValid} enterErrors={enterErrors}>
+        <ComponentInput
+          label="Электронная почта"
+          name="email"
+          value={data.email}
+          onChange={(target) => handleChange(setData, target)}
+          error={errors.email}
+          className="input-auth-form"
+          autoFocus
+          onKeyDown={(e) => handleKeyDown(e)}
+        />
+        <ComponentInput
+          label="Пароль"
+          type="password"
+          name="password"
+          value={data.password}
+          onChange={(target) => handleChange(setData, target, setEnterErrors)}
+          error={errors.password}
+          className="input-auth-form"
+          onKeyDown={(e) => handleKeyDown(e)}
+        />
+        <ComponentInput
+          label="Повторить пароль"
+          type="password"
+          name="confirmpassword"
+          value={data.confirmpassword}
+          onChange={(target) => handleChange(setData, target, setEnterErrors)}
+          error={errors.confirmpassword}
+          className="input-auth-form"
+          onKeyDown={(e) => handleKeyDown(e)}
+        />
+      </FormTemplate>
     </>
   )
 }

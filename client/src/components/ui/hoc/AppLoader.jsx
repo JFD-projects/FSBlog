@@ -3,16 +3,19 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getArticlesLoadingStatus, getOpenArticle, goArticlesListPage, goRegPage, loadArticlesList, resetFoundArticles, resetPage } from '../../../store/articles'
 import { loadStartInfo } from '../../../store/startInfo'
 import { loadCommentsList } from '../../../store/comments'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import Loader from '../../common/Loader/Loader'
 
 export const AppLoader = ({ children }) => {
   const articlesStatusLoading = useSelector(getArticlesLoadingStatus())
+  // const currentUserId = useSelector(getCurrentUserId())
   const dispatch = useDispatch()
   const history = useHistory()
+  const location = useLocation()
   useEffect(() => {
     checkLoadByURL()
   }, [])
+
   useEffect(() => {
     checkLoadByURL()
   }, [location.pathname])

@@ -3,21 +3,19 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import { BrowserRouter } from 'react-router-dom'
-import { AuthProvider } from './hooks/useAuth'
+import { Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { createStore } from './store/createStore'
+import history from './static/history'
 
 const store = createStore()
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </BrowserRouter>
+      <Router history={history}>
+        <App />
+      </Router>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
