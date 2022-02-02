@@ -48,7 +48,7 @@ export const LoginForm = () => {
 
   return (
     <>
-      <FormTemplate handleSubmit={handleSubmit} isValid={isValid} enterErrors={enterErrors}>
+      <FormTemplate handleSubmit={handleSubmit} isValid={isValid} enterErrors={enterErrors} loginError={loginError}>
         <ComponentInput
           label="Электронная почта"
           name="email"
@@ -76,8 +76,6 @@ export const LoginForm = () => {
         >
           Оставаться в системе
         </CheckBoxField>
-        {loginError && <p className="text-danger">{loginError}</p>}
       </FormTemplate>
-
     </>)
 }

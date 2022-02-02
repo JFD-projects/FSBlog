@@ -86,7 +86,7 @@ export const AddCommentForm = ({ idArticle }) => {
           variant="contained"
           endIcon={<SendIcon />}
         >
-          Опубликовать
+          Добавить комментарий
         </Button>
       </div>
     </form>

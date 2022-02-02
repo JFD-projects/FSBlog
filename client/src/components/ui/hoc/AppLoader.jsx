@@ -3,15 +3,22 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getArticlesLoadingStatus, getOpenArticle, goArticlesListPage, goRegPage, loadArticlesList, resetFoundArticles, resetPage } from '../../../store/articles'
 import { loadStartInfo } from '../../../store/startInfo'
 import { loadCommentsList } from '../../../store/comments'
+import { logOut } from '../../../store/users'
 import { useHistory, useLocation } from 'react-router-dom'
 import Loader from '../../common/Loader/Loader'
+import localStorageService from '../../../services/localStorage.service'
 
 export const AppLoader = ({ children }) => {
   const articlesStatusLoading = useSelector(getArticlesLoadingStatus())
-  // const currentUserId = useSelector(getCurrentUserId())
   const dispatch = useDispatch()
   const history = useHistory()
   const location = useLocation()
+  console.log('--> ', localStorageService.getExpiresToken() - Date.now())
+  console.log('!!!!!!!!!!!!!! ', localStorageService.getExpiresToken() < Date.now())
+  if (localStorageService.getExpiresToken() !== null && localStorageService.getExpiresToken() < Date.now()) {
+    dispatch(logOut())
+  }
+
   useEffect(() => {
     checkLoadByURL()
   }, [])

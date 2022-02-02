@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'red'
   }
 }))
-export const FormTemplate = ({ handleSubmit, isValid, enterErrors, children }) => {
+export const FormTemplate = ({ handleSubmit, isValid, enterErrors, loginError, children }) => {
   const history = useHistory()
   const classes = useStyles()
   return (
@@ -41,6 +41,7 @@ export const FormTemplate = ({ handleSubmit, isValid, enterErrors, children }) =
           Войти
         </Button>
         {enterErrors && <Typography className={classes.enterCls} variant="body2" gutterBottom>{enterErrors}</Typography>}
+        {loginError && <Typography className={classes.enterCls} variant="body2" gutterBottom>{loginError}</Typography>}
         <Button variant="outlined" onClick={() => { history.push('/') }}>Отмена</Button>
       </div>
     </form>

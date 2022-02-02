@@ -35,6 +35,7 @@ const articlesSlice = createSlice({
     },
     articleDeleted: (state, action) => {
       state.entities = action.payload
+      state.isLoading = false
     },
     articlesRequestFiled: (state, action) => {
       state.error = action.payload
@@ -167,6 +168,7 @@ export const updateArticle = (val, handleSnackbar) => async (dispatch) => {
 }
 
 export const delArticle = (articleId, handleSnackbar) => async (dispatch) => {
+  dispatch(articlesRequested())
   try {
     const { content } = await articlesService.delete(articleId)
     dispatch(articleDeleted(content))

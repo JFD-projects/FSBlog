@@ -1,5 +1,4 @@
 export const handleChange = (setData, target) => {
-  console.log(target)
   setData(prevSate => ({
     ...prevSate,
     [target.name]: target.value
@@ -10,7 +9,6 @@ export const handleSubmit = (e, validate, data) => {
   e.preventDefault()
   const isValid = validate()
   if (!isValid) return
-  console.log(data)
 }
 
 export const handleKeyDown = (e) => {
