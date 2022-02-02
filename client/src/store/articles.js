@@ -1,6 +1,6 @@
 import { createSlice, createAction } from '@reduxjs/toolkit'
 import articlesService from '../services/articlesService'
-import httpService from '../services/http.service'
+import currentArticleService from '../services/currentArticleservice'
 import { toast } from 'react-toastify'
 
 const articlesSlice = createSlice({
@@ -25,24 +25,24 @@ const articlesSlice = createSlice({
       state.isLoading = false
     },
     articleCreated: (state, action) => {
-      state.entities.push(action.payload.content)
+      state.entities.push(action.payload)
     },
     articleUpdated: (state, action) => {
       state.entities = state.entities.map(a => {
-        if (a.id === action.payload.content.id) return action.payload.content
+        if (a._id === action.payload._id) return action.payload
         return a
       })
     },
     articleDeleted: (state, action) => {
-      state.entities = state.entities.filter(a => a._id !== action.payload)
+      state.entities = action.payload
     },
     articlesRequestFiled: (state, action) => {
       state.error = action.payload
       state.isLoading = false
     },
     currentArticleReceived: (state, action) => {
-      console.log(state.entities)
-      state.currentArticle = state.entities.filter(a => Number(a._id) === Number(action.payload))
+      state.currentArticle = action.payload
+      state.isLoading = false
     },
     currentArticleReseted: (state) => {
       state.currentArticle = null
@@ -112,8 +112,17 @@ export const goRegPage = () => (dispatch) => {
   dispatch(regPageRequested())
 }
 
-export const getOpenArticle = (articleId) => (dispatch) => {
-  dispatch(currentArticleReceived(articleId))
+export const getOpenArticle = (articleId) => async (dispatch) => {
+  console.log('Open art: ', articleId)
+  dispatch(articlesRequested())
+  try {
+    const { data } = await currentArticleService.get(articleId)
+    const { content } = data
+    dispatch(currentArticleReceived(content))
+  } catch (error) {
+    dispatch(articlesRequestFiled(error.message))
+    toast(error.message)
+  }
 }
 
 export const loadArticlesList = () => async (dispatch, getState) => {
@@ -131,11 +140,12 @@ export const loadArticlesList = () => async (dispatch, getState) => {
 }
 
 export const createArticle = (val, handleSnackbar) => async (dispatch) => {
+  console.log('try to create article: ', val)
   dispatch(createArticleRequested())
   try {
-    const { data } = await httpService.put(`articles/${val.id}`, val)
+    const { content } = await articlesService.post(val)
     dispatch(moduleClosed())
-    dispatch(articleCreated(data))
+    dispatch(articleCreated(content))
     handleSnackbar()
   } catch (error) {
     dispatch(createArticleFailed(error.message))
@@ -146,9 +156,10 @@ export const createArticle = (val, handleSnackbar) => async (dispatch) => {
 export const updateArticle = (val, handleSnackbar) => async (dispatch) => {
   dispatch(updateArticleRequested())
   try {
-    const { data } = await httpService.put(`articles/${val.id}`, val)
+    const { content } = await articlesService.update(val)
+    console.log(content)
     dispatch(moduleClosed())
-    dispatch(articleUpdated(data))
+    dispatch(articleUpdated(content))
     handleSnackbar()
   } catch (error) {
     dispatch(updaterticleFailed(error.message))
@@ -158,8 +169,8 @@ export const updateArticle = (val, handleSnackbar) => async (dispatch) => {
 
 export const delArticle = (articleId, handleSnackbar) => async (dispatch) => {
   try {
-    await httpService.delete('articles/' + articleId)
-    dispatch(articleDeleted(articleId))
+    const { content } = await articlesService.delete(articleId)
+    dispatch(articleDeleted(content))
     handleSnackbar()
   } catch (error) {
     deleteArticleFailed(error.message)
@@ -167,8 +178,10 @@ export const delArticle = (articleId, handleSnackbar) => async (dispatch) => {
   }
 }
 export const editArticle = (articleId) => (dispatch) => {
+  console.log('!!!!EDIT Article!!!: ', articleId)
+  dispatch(getOpenArticle(articleId))
   dispatch(moduleOpened())
-  dispatch(currentArticleReceived(articleId))
+  // dispatch(currentArticleReceived(articleId))
 }
 
 export const setOpenModal = () => (dispatch) => {

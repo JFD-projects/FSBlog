@@ -26,6 +26,7 @@ const style = {
 }
 export const ModalEdit = ({ handleSnackbar }) => {
   const blog = useSelector(getCurrentArticle())
+  console.log('Edit article: ', blog)
   const isModal = useSelector(getIsModal())
   const dispatch = useDispatch()
 

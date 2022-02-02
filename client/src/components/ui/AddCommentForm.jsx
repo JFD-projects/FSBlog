@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 import { TextAreaField } from '../common/form/TextAreaField'
 import { handleChange } from '../../static/funcsForForm'
-import { getCurrentArticle } from '../../store/articles'
+import { getCurrentUserEmail } from '../../store/users'
 import { createComment } from '../../store/comments'
-import { useAuth } from '../../hooks/useAuth'
+// import { useAuth } from '../../hooks/useAuth'
 // Material UI:
 import { Button } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
@@ -27,9 +27,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export const AddCommentForm = () => {
-  const { currentUser } = useAuth()
-  const id = useSelector(getCurrentArticle())[0].id
+export const AddCommentForm = ({ idArticle }) => {
+  const currentUserEmail = useSelector(getCurrentUserEmail())
   const [data, setData] = useState({
     commentText: ''
   })
@@ -52,10 +51,10 @@ export const AddCommentForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    data.articleId = id
-    data.email = currentUser
+    data.articleId = idArticle
+    data.email = currentUserEmail
     data.date = new Date().toLocaleString()
-    data.id = Date.now()
+    console.log(data)
     dispatch(createComment(data))
     setData(prevSate => ({
       ...prevSate,

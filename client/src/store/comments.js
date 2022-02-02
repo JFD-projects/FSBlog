@@ -1,6 +1,5 @@
 import { createSlice, createAction } from '@reduxjs/toolkit'
 import commentsService from '../services/commentsService'
-import httpService from '../services/http.service'
 import { toast } from 'react-toastify'
 
 const commentsSlice = createSlice({
@@ -19,10 +18,10 @@ const commentsSlice = createSlice({
       state.isLoading = false
     },
     commentsCreated: (state, action) => {
-      state.entities.push(action.payload.content)
+      state.entities.push(action.payload)
     },
     commentDeleted: (state, action) => {
-      state.entities = state.entities.filter(a => a.id !== action.payload)
+      state.entities = action.payload
     },
     commentsRequestFiled: (state, action) => {
       state.error = action.payload
@@ -52,8 +51,8 @@ export const loadCommentsList = () => async (dispatch, getState) => {
 export const createComment = (val) => async (dispatch) => {
   dispatch(createCommentRequested())
   try {
-    const { data } = await httpService.put(`comments/${val.id}`, val)
-    dispatch(commentsCreated(data))
+    const { content } = await commentsService.post(val)
+    dispatch(commentsCreated(content))
   } catch (error) {
     dispatch(createCommentFailed(error.message))
     toast.error(error.message)
@@ -62,8 +61,8 @@ export const createComment = (val) => async (dispatch) => {
 
 export const delComment = (commentId) => async (dispatch) => {
   try {
-    await httpService.delete('articles/' + commentId)
-    dispatch(commentDeleted(commentId))
+    const { content } = await commentsService.delete(commentId)
+    dispatch(commentDeleted(content))
   } catch (error) {
     deleteCommentFailed(error.message)
     toast.error(error.message)

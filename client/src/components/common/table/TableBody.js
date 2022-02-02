@@ -15,15 +15,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 export const TblBody = ({ data, columns, onDelete, onEdit }) => {
+  console.log('Table body: ', data)
   const classes = useStyles()
   return (
     <TableBody>
-      {data.map(item => <TableRow key={item.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+      {data.map(item => <TableRow key={item._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
         {Object.keys(columns).map((column, i) => (
           column === 'edit' ? (
             <TableCell
               className={classes.tdStyle}
-              onClick={() => onEdit(item.id)}
+              onClick={() => onEdit(item._id)}
               key={i}
             >
               <Tooltip title="Edit">
@@ -34,7 +35,7 @@ export const TblBody = ({ data, columns, onDelete, onEdit }) => {
             </TableCell>
           ) : column === 'delete' ? (
             <TableCell
-              onClick={() => onDelete(item.id)}
+              onClick={() => onDelete(item._id)}
               key={i}
             >
               <Tooltip title="Delete">

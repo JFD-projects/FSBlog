@@ -1,10 +1,10 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { getCurrentUserEmail } from '../store/users'
 import { NavLink } from 'react-router-dom'
 import { getComments, delComment } from '../store/comments'
 import { prepareComments } from '../static/prepareComments'
 import { AddCommentForm } from '../components/ui/AddCommentForm'
-import { useAuth } from '../hooks/useAuth'
 // Materisl UI:
 import { makeStyles } from '@material-ui/core/styles'
 import Divider from '@mui/material/Divider'
@@ -46,19 +46,20 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export const Comments = ({ blogID }) => {
+  console.log('In Comments: ', blogID)
   const comments = useSelector(getComments())
   const currentComments = prepareComments(comments, blogID)
-  const { currentUser } = useAuth()
+  const currentUserEmail = useSelector(getCurrentUserEmail())
+  console.log(currentUserEmail)
   const classes = useStyles()
   const dispatch = useDispatch()
-
   return (
     <div className={classes.blockComments}>
       {currentComments?.length > 0 ? <>
         <p>Комментарии:</p>
         <ul>
           {currentComments.map(c => ((
-            <div key={c.id}>
+            <div key={c._id}>
               <div className={classes.liBlock}>
                 <li>
                   <p>
@@ -67,10 +68,10 @@ export const Comments = ({ blogID }) => {
                   </p>
                   <p className={classes.textComments}>{c.commentText}</p>
                 </li>
-                {currentUser === 'adminblog@test.ru' &&
+                {(currentUserEmail === 'adminblog@test.ru' || currentUserEmail === c.email) &&
                 <Tooltip title="Delete">
                   <IconButton>
-                    <DeleteIcon onClick={() => dispatch(delComment(c.id))}/>
+                    <DeleteIcon onClick={() => dispatch(delComment(c._id))}/>
                   </IconButton>
                 </Tooltip>
                 }
@@ -81,7 +82,7 @@ export const Comments = ({ blogID }) => {
         </ul>
       </> : <p>На данный момент комментариев нет</p>
       }
-      {currentUser ? <AddCommentForm/> : <div className={classes.loginInvite}>
+      {currentUserEmail ? <AddCommentForm idArticle={blogID} /> : <div className={classes.loginInvite}>
         Чтобы оставить комментарий необходим <NavLink to='/auth/login'>Логин</NavLink>
       </div>
       }

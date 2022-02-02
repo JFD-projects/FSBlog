@@ -35,12 +35,12 @@ const useStyles = makeStyles((theme) => ({
 
 export const AddArticleForm = ({ article, onCloseModal, handleSnackbar }) => {
   const [data, setData] = useState({
-    title: article ? article[0].title : '',
-    img: article ? article[0].img : '',
+    title: article ? article.title : '',
+    img: article ? article.img : '',
     // article: article ? article[0].article : '',
-    id: article ? article[0].id : Date.now()
+    id: article ? article._id : Date.now()
   })
-  const [convertedText, setConvertedText] = useState(article ? article[0].article : '') // ReactQuill text editor
+  const [convertedText, setConvertedText] = useState(article ? article.article : '') // ReactQuill text editor
   const classes = useStyles()
   const [dataUri, setDataUri] = useState(article?.img || '')
   const [errors, setErrors] = useState({})

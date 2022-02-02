@@ -60,16 +60,16 @@ export const ArticlePage = ({ blog }) => {
   }
   return (
     <div className={classes.root}>
-      <SubTitle>{blog[0].title}</SubTitle>
+      <SubTitle>{blog.title}</SubTitle>
       <div className={classes.currentArticleBody}>
         <div className={classes.imgBlock}>
-          <img src={blog[0].img} alt="" className={classes.img} />
+          <img src={blog.img} alt="" className={classes.img} />
         </div>
         <Typography variant="body1" gutterBottom>
-          <Markup content={blog[0].article} />
+          <Markup content={blog.article} />
         </Typography>
       </div>
-      <Comments blogID={blog[0].id}/>
+      <Comments blogID={blog._id}/>
       <Button size="medium" color="primary" className={classes.btnBack} onClick={backToArticles}>
         Назад
       </Button>

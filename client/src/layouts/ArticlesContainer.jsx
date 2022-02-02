@@ -8,7 +8,7 @@ export const ArticlesContainer = () => {
   const blog = useSelector(getCurrentArticle())
   return (
     <div className="articles">
-      {blog?.length > 0 ? (
+      {blog ? (
         <ArticlePage blog={blog}/>
       ) : (
         <ArticlesListPage />

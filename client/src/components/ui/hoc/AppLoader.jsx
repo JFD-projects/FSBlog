@@ -21,23 +21,24 @@ export const AppLoader = ({ children }) => {
   }, [location.pathname])
 
   async function checkLoadByURL () {
-    if (location.pathname === '/articles' || location.pathname === '/admin') {
+    // if (location.pathname === '/articles' || location.pathname === '/admin') {
+    if (location.pathname.match(/\/articles$/) || location.pathname.match(/\/admin$/)) {
       dispatch(goArticlesListPage())
       dispatch(resetFoundArticles())
       dispatch(resetPage())
       await dispatch(loadArticlesList())
       await dispatch(loadCommentsList())
-    } else if (location.pathname.indexOf('/articles/') !== -1) {
+    } else if (location.pathname.match(/\/articles\/\w/)) {
       const arrUrl = location.pathname.split('/')
-      await dispatch(loadArticlesList())
+      // await dispatch(loadArticlesList())
       await dispatch(loadCommentsList())
       dispatch(getOpenArticle(arrUrl[2]))
-    } else if (location.pathname === '/') {
+    } else if (location.pathname.match(/\/$/)) {
       dispatch(loadStartInfo())
-    } else if (location.pathname === '/auth/login') {
+    } else if (location.pathname.match(/\/auth\/login$/)) {
       dispatch(goRegPage())
       history.push('/auth/login')
-    } else if (location.pathname === '/auth/register') {
+    } else if (location.pathname.match(/\/auth\/register$/)) {
       history.push('/auth/register')
       dispatch(goRegPage())
     }
