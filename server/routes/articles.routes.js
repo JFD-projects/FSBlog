@@ -31,7 +31,6 @@ router
     }
   })
   .post(auth, async (req, res) => {
-    console.log('Create Article on Server: ', req.body)
     try {
       const newArticle = await Articles.create({
         ...req.body

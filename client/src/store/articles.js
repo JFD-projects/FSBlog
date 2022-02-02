@@ -157,7 +157,6 @@ export const updateArticle = (val, handleSnackbar) => async (dispatch) => {
   dispatch(updateArticleRequested())
   try {
     const { content } = await articlesService.update(val)
-    console.log(content)
     dispatch(moduleClosed())
     dispatch(articleUpdated(content))
     handleSnackbar()
@@ -178,7 +177,6 @@ export const delArticle = (articleId, handleSnackbar) => async (dispatch) => {
   }
 }
 export const editArticle = (articleId) => (dispatch) => {
-  console.log('!!!!EDIT Article!!!: ', articleId)
   dispatch(getOpenArticle(articleId))
   dispatch(moduleOpened())
   // dispatch(currentArticleReceived(articleId))

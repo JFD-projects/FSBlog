@@ -73,9 +73,7 @@ const userUpdateRequested = createAction('users/userUpdateRequested')
 const updateUserFailed = createAction('users/updateUserFailed')
 
 export const logIn = ({ payload, redirect }) => async (dispatch) => {
-  console.log(payload)
   const { email, password } = payload
-  console.log(email, password)
   dispatch(authRequested())
   try {
     const data = await authService.login({ email, password })
