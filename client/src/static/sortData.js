@@ -1,5 +1,6 @@
 export const columns = {
-  date: { path: 'date', name: 'Дата' },
+  // date: { path: 'date', name: 'Дата' }, createdAt
+  createdAt: { path: 'createdAt', name: 'Дата' },
   // id: { path: 'id', name: 'id' },
   title: { path: 'title', name: 'Название статьи' },
   edit: { path: '', name: 'Редактировать' },

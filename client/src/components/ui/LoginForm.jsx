@@ -14,7 +14,7 @@ export const LoginForm = () => {
   const history = useHistory()
   const loginError = useSelector(getAuthError())
   const [data, setData] = useState({
-    email: '', password: ''
+    email: '', password: '', stayOn: false
   })
 
   const [errors, setErrors] = useState({})
@@ -43,6 +43,7 @@ export const LoginForm = () => {
     const isValid = validate()
     if (!isValid) return
     const redirect = history.location.state ? history.location.state.from.pathname : '/'
+    console.log('From login:', data)
     dispatch(logIn({ payload: data, redirect }))
   }
 

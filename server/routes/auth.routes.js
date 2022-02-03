@@ -79,7 +79,8 @@ router.post('/signInWithPassword', [
         })
       }
 
-      const { email, password } = req.body
+      console.log('!!!!', req.body)
+      const { email, password, stayOn } = req.body
 
       const existingUser = await User.findOne({ email })
       
@@ -102,7 +103,7 @@ router.post('/signInWithPassword', [
         }) 
       }
 
-      const tokens = tokenService.generate({ _id: existingUser._id })
+      const tokens = tokenService.generate({ _id: existingUser._id, stayOn })
       await tokenService.save(existingUser._id, tokens.refreshToken)
 
       res.status(200).send({ ...tokens, userId: existingUser._id, email: existingUser.email })

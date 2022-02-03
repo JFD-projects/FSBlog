@@ -96,7 +96,7 @@ export const AddArticleForm = ({ article, onCloseModal, handleSnackbar }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (dataUri) data.img = dataUri // not match with pattern-> const [data, setData] = useState({...}) + handleChange()
-    data.date = new Date().toLocaleString() // see up
+    // data.date = new Date().toLocaleString() // see up
     data.article = convertedText
     if (convertedText.length <= 11) return setErrors({ article: 'Наполните содержимое статьи!' })
     if (checkEdit === null) {

@@ -10,7 +10,7 @@ const app = express()
 
 // app.use(express.json())
 app.use(express.json({limit: '50mb'}))
-app.use(express.urlencoded({limit: '50mb'}))
+// app.use(express.urlencoded({limit: '50mb'}))
 app.use(express.urlencoded({ extended: false }))
 app.use(cors())
 
@@ -29,7 +29,7 @@ async function start () {
   try {
     mongoose.connection.once('open', () => {
       // initDatabase()
-      // console.log('Initial empty dataBase')
+      console.log('Initial empty dataBase')
     })
     await mongoose.connect(config.get('mongoUri'))
     console.log(chalk.green(`MongoDB connected`))

@@ -15,13 +15,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 export const TblBody = ({ data, columns, onDelete, onEdit }) => {
-  console.log('Table body: ', data)
+  console.log('Table body: ', data, new Date(data[0].createdAt).toLocaleString())
   const classes = useStyles()
   return (
     <TableBody>
       {data.map(item => <TableRow key={item._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
         {Object.keys(columns).map((column, i) => (
-          column === 'edit' ? (
+          column === 'createdAt' ? (
+            <TableCell key={i}>{new Date(item[column]).toLocaleString()}</TableCell>
+          ) : column === 'edit' ? (
             <TableCell
               className={classes.tdStyle}
               onClick={() => onEdit(item._id)}

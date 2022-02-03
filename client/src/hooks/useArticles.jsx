@@ -14,7 +14,7 @@ export const ArticlesProvider = ({ children }) => {
   const articles = useSelector(getArticles())
   const findArticleArr = useSelector(getFoundArticles())
   const dispatch = useDispatch()
-  const [sortBy, setSortBy] = useState({ path: 'date', order: 'desc' })
+  const [sortBy, setSortBy] = useState({ path: 'createdAt', order: 'desc' })
 
   const sortedArticles = _.orderBy(findArticleArr || articles, [sortBy.path], [sortBy.order])
 

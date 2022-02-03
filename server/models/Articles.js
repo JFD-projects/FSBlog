@@ -5,10 +5,6 @@ const schema = new Schema({
     type: String,
     required: true
   },
-  date: {
-    type: String,
-    required: true
-  },
   img: {
     type: String
   },

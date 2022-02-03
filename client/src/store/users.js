@@ -73,10 +73,10 @@ const userUpdateRequested = createAction('users/userUpdateRequested')
 const updateUserFailed = createAction('users/updateUserFailed')
 
 export const logIn = ({ payload, redirect }) => async (dispatch) => {
-  const { email, password } = payload
+  const { email, password, stayOn } = payload
   dispatch(authRequested())
   try {
-    const data = await authService.login({ email, password })
+    const data = await authService.login({ email, password, stayOn })
     localStorageService.setTokens(data)
     dispatch(authRequestSuccess({ userId: data.userId, email: data.email }))
     history.push(redirect)

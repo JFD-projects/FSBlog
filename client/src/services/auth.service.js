@@ -14,10 +14,11 @@ const authService = {
     const { data } = await httpAuth.post('signUp', payload)
     return data
   },
-  login: async ({ email, password }) => {
+  login: async ({ email, password, stayOn }) => {
     const { data } = await httpAuth.post('signInWithPassword', {
       email,
       password,
+      stayOn,
       returnSecureToken: true
     })
     return data
