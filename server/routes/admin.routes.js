@@ -19,7 +19,6 @@ router
   .post(auth, async (req, res) => {
     try {
       const newArticle = await Articles.create({...req.body})
-      console.log('newArticle: ', newArticle)
       res.status(200).send(newArticle)
     } catch (e) {
       res.status(500).json({
@@ -43,7 +42,6 @@ router
       }
     })
     .put(auth, async (req, res) => {
-      console.log('try to update!')
       try {
         const { articleId } = req.params
         const editArticle = await Articles.findById(articleId)

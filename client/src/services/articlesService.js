@@ -12,7 +12,6 @@ const articlesService = {
     return data
   },
   update: async (payload) => {
-    console.log(payload, payload.id)
     const { data } = await httpService.patch(articlesEndpoint + `/${payload.id}`, payload)
     return data
   },

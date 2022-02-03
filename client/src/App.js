@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 function App () {
-  // const { isAuth, currentUser } = useAuth()
   const isAuth = useSelector(getIsLoggedIn())
   const currentUserEmail = useSelector(getCurrentUserEmail())
   const classes = useStyles()

@@ -114,7 +114,6 @@ export const goRegPage = () => (dispatch) => {
 }
 
 export const getOpenArticle = (articleId) => async (dispatch) => {
-  console.log('Open art: ', articleId)
   dispatch(articlesRequested())
   try {
     const { data } = await currentArticleService.get(articleId)
@@ -141,7 +140,6 @@ export const loadArticlesList = () => async (dispatch, getState) => {
 }
 
 export const createArticle = (val, handleSnackbar) => async (dispatch) => {
-  console.log('try to create article: ', val)
   dispatch(createArticleRequested())
   try {
     const { content } = await articlesService.post(val)

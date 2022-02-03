@@ -54,7 +54,6 @@ export const AddCommentForm = ({ idArticle }) => {
     data.articleId = idArticle
     data.email = currentUserEmail
     data.date = new Date().toLocaleString()
-    console.log(data)
     dispatch(createComment(data))
     setData(prevSate => ({
       ...prevSate,

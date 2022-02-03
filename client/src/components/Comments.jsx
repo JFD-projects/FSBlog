@@ -46,11 +46,9 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export const Comments = ({ blogID }) => {
-  console.log('In Comments: ', blogID)
   const comments = useSelector(getComments())
   const currentComments = prepareComments(comments, blogID)
   const currentUserEmail = useSelector(getCurrentUserEmail())
-  console.log(currentUserEmail)
   const classes = useStyles()
   const dispatch = useDispatch()
   return (

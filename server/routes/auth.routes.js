@@ -79,7 +79,6 @@ router.post('/signInWithPassword', [
         })
       }
 
-      console.log('!!!!', req.body)
       const { email, password, stayOn } = req.body
 
       const existingUser = await User.findOne({ email })

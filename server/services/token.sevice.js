@@ -5,7 +5,6 @@ const Token = require('../models/Token')
 class TokenService {
   // return: accessToken, refreshToken, expiresIn
   generate (payload) {
-    console.log(payload)
     let valueH = 3600
     if (payload.stayOn) valueH = 36000000
     const accessToken = jwt.sign(payload, config.get('accessSecret'), {

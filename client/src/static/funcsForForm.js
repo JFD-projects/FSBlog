@@ -5,11 +5,11 @@ export const handleChange = (setData, target) => {
   }))
 }
 
-export const handleSubmit = (e, validate, data) => {
-  e.preventDefault()
-  const isValid = validate()
-  if (!isValid) return
-}
+// export const handleSubmit = (e, validate, data) => {
+//   e.preventDefault()
+//   const isValid = validate()
+//   if (!isValid) return
+// }
 
 export const handleKeyDown = (e) => {
   // if (e.keyCode === 13) {
