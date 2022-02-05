@@ -5,13 +5,17 @@ const Token = require('../models/Token')
 class TokenService {
   // return: accessToken, refreshToken, expiresIn
   generate (payload) {
-    let valueH = 3600
-    if (payload.stayOn) valueH = 36000000
+    let expiresInValue = 3600
+    let accessTokenValue = '1h'
+    if (payload.stayOn) {
+      expiresInValue = 36000000
+      accessTokenValue = '600h'
+    } 
     const accessToken = jwt.sign(payload, config.get('accessSecret'), {
-      expiresIn: '1h'
+      expiresIn: accessTokenValue
     })
     const refreshToken = jwt.sign(payload, config.get('refreshSecret'))
-    return { accessToken, refreshToken, expiresIn: valueH }
+    return { accessToken, refreshToken, expiresIn: expiresInValue }
   }
 
   async save (user, refreshToken) {
