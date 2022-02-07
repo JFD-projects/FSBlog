@@ -1,7 +1,7 @@
 import React from 'react'
-import { SubTitle } from './common/typografy/SubTitle'
-import emailPNG from '../assets/imgs/email.png'
-import telegramPNG from '../assets/imgs/telegram.png'
+import { SubTitle } from '../common/typografy/SubTitle'
+import emailPNG from '../../assets/imgs/email.png'
+import telegramPNG from '../../assets/imgs/telegram.png'
 // Material UI:
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'

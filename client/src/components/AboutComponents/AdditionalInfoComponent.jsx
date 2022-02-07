@@ -1,5 +1,5 @@
 import React from 'react'
-import { SubTitle } from '../components/common/typografy/SubTitle'
+import { SubTitle } from '../common/typografy/SubTitle'
 // Material UI:
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
@@ -7,7 +7,7 @@ import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { additionalInfo } from '../store/info'
+import { additionalInfo } from '../../store/info'
 
 const useStyles = makeStyles((theme) => ({
   currentArticleBody: {

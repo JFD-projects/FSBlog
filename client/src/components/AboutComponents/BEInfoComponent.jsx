@@ -1,6 +1,5 @@
 import React from 'react'
-import { SubTitle } from './common/typografy/SubTitle'
-
+import { SubTitle } from '../../components/common/typografy/SubTitle'
 // Material UI:
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
@@ -8,7 +7,7 @@ import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { frontendInfo } from '../store/info'
+import { backendInfo } from '../../store/info'
 
 const useStyles = makeStyles((theme) => ({
   currentArticleBody: {
@@ -23,15 +22,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export const FEInfoComponent = () => {
+export const BEInfoComponent = () => {
   const classes = useStyles()
   return (
     <>
-      <SubTitle>Frontend, используем библиотеку React:</SubTitle>
+      <SubTitle>Backend, используем Node.js, Express, MongoDB:</SubTitle>
       <div className={classes.currentArticleBody}>
         <div>
           {
-            frontendInfo.map((info, i) => ((
+            backendInfo.map((info, i) => ((
               <Accordion key={i}>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
