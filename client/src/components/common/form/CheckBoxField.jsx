@@ -1,5 +1,5 @@
 import React from 'react'
-import { Checkbox } from '@mui/material/'
+import { Checkbox, Box } from '@mui/material/'
 
 export const CheckBoxField = ({ name, value, onChange, children, error, ...rest }) => {
   const handleChange = () => {
@@ -7,7 +7,7 @@ export const CheckBoxField = ({ name, value, onChange, children, error, ...rest 
   }
 
   return (
-    <div className="form-check">
+    <Box className="form-check" sx={{ color: 'white' }}>
       <Checkbox
         type="checkbox"
         value=""
@@ -16,12 +16,12 @@ export const CheckBoxField = ({ name, value, onChange, children, error, ...rest 
         checked={value}
         {...rest}
       />
-      <label className="form-check-label" htmlFor="flexCheckDefault">
+      <label htmlFor="flexCheckDefault">
         {children}
       </label>
       {error &&
         <div className="invalid-feedback">{error}</div>
       }
-    </div>
+    </Box>
   )
 }

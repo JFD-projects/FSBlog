@@ -48,9 +48,12 @@ export const AppLoader = ({ children }) => {
     } else if (location.pathname.match(/\/auth\/register$/)) {
       history.push('/auth/register')
       dispatch(goRegPage())
+    } else if (location.pathname.match(/\/about/)) {
+      console.log('about')
+      return children
     }
   }
   if (location.pathname === '/') return children
-  if (articlesStatusLoading) return <div className="loader-container"><Loader/></div>
+  if (articlesStatusLoading && location.pathname !== '/about') return <div className="loader-container"><Loader/></div>
   return children
 }

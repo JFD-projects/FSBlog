@@ -43,7 +43,7 @@ export const ArticlesListPage = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color="primary" onClick={() => openArticle(a._id) }>
+                <Button variant="outlined" color="inherit" onClick={() => openArticle(a._id) }>
                   Открыть
                 </Button>
               </CardActions>

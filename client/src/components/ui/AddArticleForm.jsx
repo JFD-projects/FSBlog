@@ -142,11 +142,12 @@ export const AddArticleForm = ({ article, onCloseModal, handleSnackbar }) => {
           type='submit'
           disabled={!isValid}
           variant='contained'
+          color='inherit'
           endIcon={<SaveIcon />}
         >
           Сохранить
         </Button>
-        <Button variant='outlined' type='button' onClick={onCloseModal}>Отмена</Button>
+        <Button color='inherit' variant='outlined' type='button' onClick={onCloseModal}>Отмена</Button>
       </div>
     </form>
   )

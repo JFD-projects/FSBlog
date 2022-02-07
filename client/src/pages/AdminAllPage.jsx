@@ -49,7 +49,7 @@ export const AdminAllPage = () => {
   return (
     <div className={classes.rootAdmin}>
       <div className={classes.blockActions} component="div">
-        <Button variant="contained" endIcon={<CreateIcon />} onClick={() => dispatch(setOpenModal())}>
+        <Button variant="contained" color="inherit" endIcon={<CreateIcon />} onClick={() => dispatch(setOpenModal())}>
           Создать статью
         </Button>
         <SearchArticleComponent

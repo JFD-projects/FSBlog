@@ -7,10 +7,12 @@ import { Comments } from '../components/Comments'
 import { Markup } from 'interweave'
 // Material UI:
 import { makeStyles } from '@material-ui/core/styles'
-import { Typography, Button } from '@material-ui/core'
+import { Typography, Button, Box } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    maxWidth: '970px',
+    margin: 'auto',
     display: 'flex',
     flexDirection: 'column',
     position: 'relative'
@@ -21,8 +23,9 @@ const useStyles = makeStyles((theme) => ({
       whiteSpace: 'pre-wrap'
     },
     padding: '25px',
-    backgroundColor: 'rgb(103 103 235)',
-    boxShadow: '2px 3px 25px rgb(49, 49, 77)',
+    backgroundColor: 'rgb(166 166 169);',
+    borderRadius: '3px',
+    // boxShadow: '2px 3px 25px rgb(166 166 169);',
     color: '#fff',
     textIndent: '1.5em'
   },
@@ -70,9 +73,11 @@ export const ArticlePage = ({ blog }) => {
         </Typography>
       </div>
       <Comments blogID={blog._id}/>
-      <Button size="medium" color="primary" className={classes.btnBack} onClick={backToArticles}>
-        Назад
-      </Button>
+      <Box sx={{ textAlign: 'center' }}>
+        <Button variant="outlined" color="inherit" className={classes.btnBack} onClick={backToArticles}>
+          Назад
+        </Button>
+      </Box>
     </div>
   )
 }

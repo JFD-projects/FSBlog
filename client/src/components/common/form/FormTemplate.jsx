@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-evenly',
     marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
+    color: '#101c24'
   },
   enterCls: {
     color: 'red'
@@ -37,12 +38,13 @@ export const FormTemplate = ({ handleSubmit, isValid, enterErrors, loginError, c
           type="submit"
           disabled={!isValid || !!enterErrors}
           variant="outlined"
+          color="inherit"
         >
           Войти
         </Button>
         {enterErrors && <Typography className={classes.enterCls} variant="body2" gutterBottom>{enterErrors}</Typography>}
         {loginError && <Typography className={classes.enterCls} variant="body2" gutterBottom>{loginError}</Typography>}
-        <Button variant="outlined" onClick={() => { history.push('/') }}>Отмена</Button>
+        <Button variant="outlined" color="inherit" onClick={() => { history.push('/') }}>Отмена</Button>
       </div>
     </form>
   )

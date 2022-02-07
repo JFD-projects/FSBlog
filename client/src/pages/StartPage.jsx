@@ -1,9 +1,9 @@
 import React from 'react'
-import { SubTitle } from '../components/common/typografy/SubTitle'
+// import { SubTitle } from '../components/common/typografy/SubTitle'
 import { getStartInfo } from '../store/startInfo'
 import { useSelector } from 'react-redux'
 // Material UI:
-import { Typography } from '@material-ui/core'
+import { Typography, Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
@@ -11,8 +11,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center'
   },
   blog: {
+    margin: 'auto',
+    maxWidth: '650px',
     backgroundColor: '#f2f5fd',
-    padding: '20px',
+    padding: '25px',
     marginBottom: theme.spacing(4),
     border: '1px solid #fff',
     borderRadius: '2px',
@@ -39,7 +41,12 @@ export const StartPage = () => {
   const classes = useStyles()
   return (
     <div>
-      <SubTitle>О Frontend&apos;е...</SubTitle>
+      <Box sx={{ textAlign: 'center', mt: 2 }}>
+        <Typography variant="h5" gutterBottom component="div">
+          О Frontend&apos;е...
+        </Typography>
+      </Box>
+      {/* <SubTitle>О Frontend&apos;е...</SubTitle> */}
       {startInfo?.map(blog => (
         <div key={blog.img} className={classes.blog}>
           <div className={classes.imgBlock}>

@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   authBlock: {
-    border: '2px solid #0012ff',
+    border: '2px solid #101c24',
     borderRadius: '3px',
     padding: '10px 40px 40px 40px',
     margin: '20px auto',
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   linkAuth: {
     textDecoration: 'none',
-    color: '#0012ff'
+    color: '#101c24'
   }
 }))
 export const Auth = () => {

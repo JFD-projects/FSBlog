@@ -17,11 +17,11 @@ export const SearchArticleComponent = ({ articles }) => {
 
   return (
     <ComponentInput
-      label='Название статьи:'
+      label='Поиск статьи'
       name='searchArticle'
       value={searchArticle}
       onChange={(e) => handlerSearchArticle(e)}
-      placeholder='Поиск...'
+      placeholder='Название статьи'
     />
   )
 }

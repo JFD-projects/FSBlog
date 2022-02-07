@@ -21,6 +21,7 @@ import './App.scss'
 import { Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { ArticlesProvider } from './hooks/useArticles'
+import { About } from './pages/About'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +46,7 @@ function App () {
               <ProtectedRoute path='/admin' component={AdminAllPage} auth={isAuth} currentUser={currentUserEmail} />
             </ArticlesProvider>
             <Route path='/auth/:type?' component={Auth} />
+            <Route path='/about' component={About} />
           </Container>
           <FooterPage />
         </>

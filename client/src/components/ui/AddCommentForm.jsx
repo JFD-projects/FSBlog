@@ -83,6 +83,7 @@ export const AddCommentForm = ({ idArticle }) => {
         <Button
           type="submit"
           variant="contained"
+          color="inherit"
           endIcon={<SendIcon />}
         >
           Добавить комментарий

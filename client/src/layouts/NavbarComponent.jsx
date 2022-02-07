@@ -12,7 +12,8 @@ import LoginIcon from '@mui/icons-material/Login'
 
 const useStyles = makeStyles((theme) => ({
   rootNav: {
-    width: '100%'
+    width: '100%',
+    backgroundColor: '#101c24'
   },
   menuButton: {
     flexGrow: 0
@@ -61,7 +62,7 @@ export const NavbarComponent = () => {
   return (
     <AppBar position="static" className={classes.rootNav}>
       <Toolbar>
-        <Typography variant="h6" className={classes.title}>
+        <Typography variant="h5" className={classes.title} onClick={() => handleMenuClick('/')}>
           БлогFrontend
         </Typography>
         <Menu
@@ -82,6 +83,9 @@ export const NavbarComponent = () => {
           </MenuItem>
           <MenuItem onClick={() => handleMenuClick('/admin')}>
             RootДоступ
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuClick('/about')}>
+            About
           </MenuItem>
           {!isAuth ? (
             <div>
@@ -119,6 +123,9 @@ export const NavbarComponent = () => {
               </MenuItem>
               <MenuItem to='/admin' component={NavLink}>
                 RootДоступ
+              </MenuItem>
+              <MenuItem to='/about' component={NavLink}>
+                About
               </MenuItem>
             </div>
             {!isAuth ? (

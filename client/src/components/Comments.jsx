@@ -41,7 +41,10 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: 'italic'
   },
   loginInvite: {
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(3),
+    '& a': {
+      color: '#fff'
+    }
   }
 }))
 
