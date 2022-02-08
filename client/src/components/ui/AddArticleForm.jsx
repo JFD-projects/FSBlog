@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import * as yup from 'yup'
 import { ComponentInput } from '../common/form/TextField'
-// import { TextAreaField } from '../common/form/TextAreaField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
 import { InputFile } from '../common/form/InputFile'
 import { createArticle, updateArticle } from '../../store/articles'
@@ -37,7 +36,6 @@ export const AddArticleForm = ({ article, onCloseModal, handleSnackbar }) => {
   const [data, setData] = useState({
     title: article ? article.title : '',
     img: article ? article.img : '',
-    // article: article ? article[0].article : '',
     id: article ? article._id : Date.now()
   })
   const [convertedText, setConvertedText] = useState(article ? article.article : '') // ReactQuill text editor
@@ -67,7 +65,6 @@ export const AddArticleForm = ({ article, onCloseModal, handleSnackbar }) => {
   })
 
   const validateScheme = yup.object().shape({
-    // article: yup.string().required('Содержание статьи - обязательно'),
     title: yup.string().required('Необходимо указать название статьи')
   })
 

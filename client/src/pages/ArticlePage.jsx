@@ -23,10 +23,9 @@ const useStyles = makeStyles((theme) => ({
       whiteSpace: 'pre-wrap'
     },
     padding: '25px',
-    backgroundColor: 'rgb(166 166 169);',
+    backgroundColor: '#d2d2d5;',
     borderRadius: '3px',
-    // boxShadow: '2px 3px 25px rgb(166 166 169);',
-    color: '#fff',
+    color: '#000',
     textIndent: '1.5em'
   },
   imgBlock: {

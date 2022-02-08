@@ -4,8 +4,9 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   taAddArticle: {
-    background: 'transparent',
+    background: '#d2d2d5',
     border: '1px solid rgb(90, 89, 89)',
+    borderRadius: '3px',
     width: '100%',
     padding: '10px',
     fontSize: '17px',
