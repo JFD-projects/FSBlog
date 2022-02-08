@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getArticles, getFoundArticles, getPage, setPage } from '../store/articles'
 import _ from 'lodash'
@@ -24,6 +24,10 @@ export const ArticlesProvider = ({ children }) => {
   const handleChange = (event, value) => {
     dispatch(setPage(value))
   }
+
+  useEffect(() => {
+    if (sortedArticles.length <= 6) dispatch(setPage(1))
+  }, [findArticleArr])
 
   const handleSort = (item) => {
     setSortBy(item)

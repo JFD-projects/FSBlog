@@ -13,8 +13,7 @@ export const AppLoader = ({ children }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const location = useLocation()
-  console.log('--> ', localStorageService.getExpiresToken() - Date.now())
-  console.log('!!!!!!!!!!!!!! ', localStorageService.getExpiresToken() < Date.now())
+
   if (localStorageService.getExpiresToken() !== null && localStorageService.getExpiresToken() < Date.now()) {
     dispatch(logOut())
   }
@@ -28,7 +27,6 @@ export const AppLoader = ({ children }) => {
   }, [location.pathname])
 
   async function checkLoadByURL () {
-    // if (location.pathname === '/articles' || location.pathname === '/admin') {
     if (location.pathname.match(/\/articles$/) || location.pathname.match(/\/admin$/)) {
       dispatch(goArticlesListPage())
       dispatch(resetFoundArticles())
@@ -49,7 +47,6 @@ export const AppLoader = ({ children }) => {
       history.push('/auth/register')
       dispatch(goRegPage())
     } else if (location.pathname.match(/\/about/)) {
-      console.log('about')
       return children
     }
   }

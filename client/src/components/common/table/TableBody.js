@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 export const TblBody = ({ data, columns, onDelete, onEdit }) => {
-  console.log('Table body: ', data, new Date(data[0].createdAt).toLocaleString())
+  // console.log('Table body: ', data, new Date(data[0].createdAt).toLocaleString())
   const classes = useStyles()
   return (
     <TableBody>
