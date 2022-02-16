@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   dateComments: {
     fontSize: '12px',
-    color: 'grey'
+    color: '#a7a7a7'
   },
   emailComments: {
     fontSize: '16px'

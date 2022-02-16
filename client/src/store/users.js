@@ -1,7 +1,6 @@
 import { createAction, createSlice } from '@reduxjs/toolkit'
 import authService from '../services/auth.service'
 import localStorageService from '../services/localStorage.service'
-import userService from '../services/userService'
 import history from '../static/history'
 import { generateAuthError } from '../static/generateAuthError'
 
@@ -66,11 +65,9 @@ const usersSlice = createSlice({
 })
 
 const { reducer: usersReducer, actions } = usersSlice
-const { usersRequested, usersReceived, usersRequestFiled, authRequestSuccess, authRequestFailed, userUpdated, userLoggedout } = actions
+const { authRequestSuccess, authRequestFailed, userLoggedout } = actions
 
 const authRequested = createAction('users/authRequested')
-const userUpdateRequested = createAction('users/userUpdateRequested')
-const updateUserFailed = createAction('users/updateUserFailed')
 
 export const logIn = ({ payload, redirect }) => async (dispatch) => {
   const { email, password, stayOn } = payload
@@ -109,29 +106,6 @@ export const logOut = () => (dispatch) => {
   history.push('/auth/login')
 }
 
-export const getUpdateUserData = (payload) => async (dispatch, getState) => {
-  dispatch(userUpdateRequested())
-  try {
-    const { content } = await userService.update(payload)
-    dispatch(userUpdated(content))
-    history.push(`/users/${getState().users.auth.userId}`)
-  } catch (error) {
-    dispatch(updateUserFailed(error.message))
-    console.log(error)
-  }
-}
-
-export const loadUsersList = () => async (dispatch, getState) => {
-  dispatch(usersRequested())
-  try {
-    const { content } = await userService.get()
-    dispatch(usersReceived(content))
-  } catch (error) {
-    dispatch(usersRequestFiled(error.message))
-  }
-}
-
-export const getUsersList = () => (state) => state.users.entities
 export const getCurrentUserData = () => (state) => {
   return state.users.entities ? state.users.entities.find(u => u._id === state.users.auth.userId) : null
 }
